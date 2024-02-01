@@ -14,6 +14,7 @@ using namespace std;
 // pop_back: o(n) operation
 // pop_front: o(1) operation
 // printAllElements / printallElementsRecrusiver: o(n) operation
+// reverse: o(n) operation
 
 
 namespace LinkedLists {
