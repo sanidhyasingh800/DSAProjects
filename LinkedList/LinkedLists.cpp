@@ -1,8 +1,8 @@
 #include <iostream>
-#include "LinkedList/SingleLinkedListWithHeadPointer.h"
-#include "LinkedList/SingleLinkedListWithHeadPointer.cpp"
-#include "LinkedList/DoublyLinkedListWithHeadTailPointers.h"
-#include "LinkedList/DoublyLinkedListWithHeadTailPointers.cpp"
+#include "SingleLinkedListWithHeadPointer.h"
+#include "SingleLinkedListWithHeadPointer.cpp"
+#include "DoublyLinkedListWithHeadTailPointers.h"
+#include "DoublyLinkedListWithHeadTailPointers.cpp"
 using namespace std;
 using namespace LinkedLists;
 

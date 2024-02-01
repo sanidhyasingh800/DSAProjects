@@ -6,7 +6,7 @@ using namespace std;
 
 // Implementation of a Single Linked List with Head Pointer
 // Classifications:
-// Singly Linked
+// Singly Linked / null terminated
 // Single Head Pointer (pointing to first element added)
 //		only serves as a pointer to the array
 // push_back: o(n) operation

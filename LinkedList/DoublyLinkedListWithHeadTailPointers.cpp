@@ -2,6 +2,19 @@
 #include <iostream>
 #include <cassert>
 #include "DoublyLinkedListWithHeadTailPointers.h"
+
+// Implementation of a Double Linked List with Head Pointer and Tail Pointer
+// Classifications:
+// Doubly Linked/ null terminated
+//  Head Pointer and Tail Pointer (pointing to first element added; last)
+//		only serves as a pointer to the array
+// push_back: o(1) operation
+// push_front: o(1) operation
+// pop_back: o(1) operation
+// pop_front: o(1) operation
+// printAllElements o(n) operation
+// insert_at: o(n) operation
+
 using namespace std;
 
 namespace LinkedLists {
