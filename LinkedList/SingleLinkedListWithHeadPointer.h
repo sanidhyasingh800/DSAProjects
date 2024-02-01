@@ -7,8 +7,12 @@ using namespace std;
 // Singly Linked
 // Single Head Pointer (pointing to first element added)
 //		only serves as a pointer to the array
-// push: o(n) operation
-// remove 
+// push_back: o(n) operation
+// push_front: o(1) operation
+// pop_back: o(n) operation
+// pop_front: o(1) operation
+// printAllElements / printallElementsRecrusiver: o(n) operation
+// reverse: o(n) operation
 
 
 namespace LinkedLists {
@@ -27,6 +31,8 @@ private:
 public:
 
 	SingleLinkedListWithHeadPointer();
+
+	~SingleLinkedListWithHeadPointer();
 
 	bool isEmpty();
 

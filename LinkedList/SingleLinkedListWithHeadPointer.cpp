@@ -132,4 +132,18 @@ void SingleLinkedListWithHeadPointer<Data> :: reverseList() {
 
 }
 
+    template<class Data>
+    SingleLinkedListWithHeadPointer<Data> :: ~SingleLinkedListWithHeadPointer() {
+        if (head == NULL) {
+            return;
+        }
+        Node* currentNode = head;
+        while(currentNode != NULL) {
+            Node* deleteNode = currentNode;
+            currentNode = currentNode->next;
+            delete deleteNode;
+        }
+        head = NULL;
+    }
+
 }
