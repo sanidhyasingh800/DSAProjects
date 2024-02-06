@@ -14,7 +14,7 @@
 // pop_front: o(1) operation
 // printAllElements o(n) operation
 // insert_at: o(n) operation
-
+ 
 using namespace std;
 
 namespace LinkedLists {
@@ -129,8 +129,6 @@ namespace LinkedLists {
         if (index >= length) {
             return;
         }
-        Node* currentNode = head;
-        Node* newNode = new Node(data);
         if (index == 0) {
             push_front(data);
             return;
@@ -140,10 +138,15 @@ namespace LinkedLists {
             push_back(data);
             return;
         }
+        
+        Node* currentNode = head;
+        Node* newNode = new Node(data);
+
         while(index > 0 ) {
             currentNode = currentNode->next;
             index--;
         }
+        
         newNode->next = currentNode;
         newNode->prev = currentNode->prev;
         currentNode->prev->next = newNode;
