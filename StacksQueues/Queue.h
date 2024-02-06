@@ -19,6 +19,7 @@ public:
     // bool is_empty() const;
     void enqueue(Data e);
     Data dequeue();
+    ~Queue();
 private:
     struct Node {
         Data data;

@@ -22,6 +22,8 @@ namespace StackQueues {
         Data pop();
 
         bool isEmpty();
+
+        ~Stack();
         
     };
 }

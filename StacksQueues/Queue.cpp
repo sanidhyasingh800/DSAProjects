@@ -52,6 +52,13 @@ namespace StackQueues {
 
     }
 
+    template<class Data>
+    Queue<Data> :: ~Queue() {
+        while(front != NULL) {
+            dequeue();
+        }
+    }
+
 
 
 }

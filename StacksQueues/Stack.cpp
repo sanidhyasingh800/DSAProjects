@@ -43,4 +43,9 @@ namespace StackQueues {
     bool Stack<Data> :: isEmpty() {
         return size != 0;
     }
+
+    template<class Data>
+    Stack<Data> :: ~Stack() {
+        delete[] array;
+    }
 }
