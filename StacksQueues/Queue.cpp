@@ -17,20 +17,15 @@ namespace StackQueues {
 
     template<class Data> 
     void Queue<Data> :: enqueue(Data d) {
+        Node* newNode = new Node();
+        newNode->data = d;
         if (front == NULL) {
-            Node* newNode = new Node();
-            newNode->data = d;
             front = newNode;
             back = newNode;
             return;
         }
-        Node* newNode = new Node();
-        newNode->data = d;
         back->next = newNode;
         back = newNode;
-        if (front->next == NULL) {
-            front->next = back;
-        }
 
     }
 
