@@ -1,3 +1,4 @@
+#include <iostream>
 using namespace std;
 
 namespace Sorting {
@@ -43,6 +44,20 @@ namespace Sorting {
          merge(sourceArray, startingIndex, splitIndex, endingIndex);
 
         }   
+
+        void sort2(Data* sourceArray, int startingIndex, int endingIndex) {
+            // division of array into smaller and smaller subparts 
+            if (endingIndex - startingIndex <= 1) {
+                cout << sourceArray[startingIndex] << endl;
+                return;
+            }
+            int splitIndex = (startingIndex + endingIndex)/2;
+            sort2(sourceArray, startingIndex, splitIndex);
+            sort2(sourceArray, splitIndex, endingIndex);
+
+           // merge(sourceArray, startingIndex, splitIndex, endingIndex);2
+
+        }  
 
         public:
 
