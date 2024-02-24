@@ -151,5 +151,21 @@ namespace Trees {
             return heightOfTree(root);
         }
 
+        void printPaths() const {
+            printPaths(root);
+        }
+
+        void printPaths(const Node* subRoot) const {
+            cout << to_string(subRoot->data) << " ";
+            if (subRoot->left != NULL) {
+                printPaths(subRoot->left);
+            }
+            cout << endl;
+            if (subRoot->right != NULL) {
+                printPaths(subRoot->right);
+            }
+             cout << endl;
+        }
+
     };
 }

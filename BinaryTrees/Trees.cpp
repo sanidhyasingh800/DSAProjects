@@ -13,6 +13,7 @@ int main() {
     tree.inOrderTraversal();
     tree.preOrderTraversal();
     tree.levelOrderTraversal();
+    tree.printPaths();
     int x = tree.heightOfTree();
     cout << endl << x << endl;
 
