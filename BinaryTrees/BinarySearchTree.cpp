@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <vector>
 
 // Linked implemebtation of a Binary Search Tree 
 // search and insert work in log n time on average but degrade to O(n) in worst case (non balancing)
@@ -118,8 +119,41 @@ namespace Trees {
             }
             return 1 + leftTreeHeight;
         }
+
+        void printPaths(vector<Node*>& path, Node* subRoot) const  {
+            path.push_back(subRoot);
+            if(subRoot->left != NULL) {
+                printPaths(path, subRoot->left);
+            }
+            if (subRoot->right != NULL) {
+                printPaths(path, subRoot->right);
+            }
+            if (subRoot->right == NULL && subRoot->left == NULL) {
+                cout  << "Path: ";
+                for (Node* x : path) {
+                    cout << x->data << " ";
+                }
+                cout << endl;
+            }
+            path.pop_back();
+        }
+
+        int sumDistances(int pathlength, Node* subRoot) const {
+            int currentPath = pathlength;
+            if (subRoot->left == NULL && subRoot->right == NULL) {
+                return pathlength;
+            }
+            if (subRoot->left != NULL && subRoot->right == NULL) {
+                return currentPath + sumDistances(++pathlength, subRoot->left);
+            }
+            if (subRoot->right != NULL && subRoot->left == NULL) {
+                return currentPath + sumDistances(++pathlength, subRoot->right);
+            } if (subRoot->left != NULL && subRoot->right != NULL) {
+                 return currentPath + sumDistances(++pathlength, subRoot->left) + sumDistances(pathlength, subRoot->right);
+            }
+        }
         public:
-        BinaryTree() {
+        BinarySearchTree() {
             root = NULL;
         }
 
@@ -152,20 +186,17 @@ namespace Trees {
         }
 
         void printPaths() const {
-            printPaths(root);
+            vector<Node*> path;
+            printPaths(path, root);
         }
 
-        void printPaths(const Node* subRoot) const {
-            cout << to_string(subRoot->data) << " ";
-            if (subRoot->left != NULL) {
-                printPaths(subRoot->left);
-            }
-            cout << endl;
-            if (subRoot->right != NULL) {
-                printPaths(subRoot->right);
-            }
-             cout << endl;
+        int sumDistances() const {
+            int pathlength = 0;
+            return sumDistances(pathlength, root);
         }
+
+        
+
 
     };
 }
