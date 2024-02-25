@@ -151,6 +151,7 @@ namespace Trees {
             } if (subRoot->left != NULL && subRoot->right != NULL) {
                  return currentPath + sumDistances(++pathlength, subRoot->left) + sumDistances(pathlength, subRoot->right);
             }
+            return 0;
         }
         public:
         BinarySearchTree() {
