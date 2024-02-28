@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <string>
 
 // Linked implemebtation of a Binary Search Tree 
 // search and insert work in log n time on average but degrade to O(n) in worst case (non balancing)
@@ -19,6 +20,7 @@ namespace Trees {
             Data data;
         };
         Node* root;
+        vector<Node*> levelOrderTraversalV;
 
 
         void insert(Data& d, Node*& root) {
@@ -83,6 +85,25 @@ namespace Trees {
             }
         }
 
+        
+        void levelOrderTraversalVector(Node* root) {
+            if (root == NULL) {
+                return;
+            }
+            queue<Node*> q;
+            q.push(root);
+            while (!q.empty()) {
+                levelOrderTraversalV.push_back(q.front());
+                if (q.front()->left != NULL) {
+                    q.push(q.front()->left);
+                }
+                if (q.front()->right != NULL) {
+                    q.push(q.front()->right);
+                }
+                q.pop();
+            }
+        }
+
         bool search (Data data, Node* node) {
             if (data > node->data) {
                 if (node->right == NULL) {
@@ -99,20 +120,20 @@ namespace Trees {
             return true;
         }
 
-        int heightOfTree(Node* root) {
-            if (root == NULL) {
+        int heightOfTree(Node* subroot) {
+            if (subroot == NULL) {
                 return -1;
             }
-            if(root->right == NULL && root->left == NULL) {
+            if(subroot->right == NULL && subroot->left == NULL) {
                 return 0;
             }
             int rightTreeHeight = 0;
             int leftTreeHeight = 0;
-            if (root->right != NULL){
-                rightTreeHeight = heightOfTree(root->right);
+            if (subroot->right != NULL){
+                rightTreeHeight = heightOfTree(subroot->right);
             }
-            if (root->left != NULL) {
-                leftTreeHeight = heightOfTree(root->left);
+            if (subroot->left != NULL) {
+                leftTreeHeight = heightOfTree(subroot->left);
             }
             if (rightTreeHeight > leftTreeHeight) {
                 return 1+ rightTreeHeight;
@@ -153,6 +174,117 @@ namespace Trees {
             }
             return 0;
         }
+
+        void deleteNode(Data data, Node* subRoot, Node* parent, bool isLeftChild) {
+            if (data > subRoot->data) {
+                if (subRoot->right == NULL) {
+                    return;
+                }
+                deleteNode(data, subRoot->right, subRoot, false);
+                return;
+            }
+            if (data < subRoot->data) {
+                if (subRoot->left == NULL) {
+                    return;
+                }
+                deleteNode(data, subRoot->left, subRoot, true);
+                return;
+            }
+            if (subRoot->left == NULL && subRoot->right == NULL) {
+                deleteNoChildren(subRoot, parent, isLeftChild);
+                return;
+            }
+            if (subRoot->left == NULL || subRoot->right == NULL) {
+                deleteOneChild(subRoot, parent, isLeftChild);
+                return;
+            }
+            deleteTwoChildren(subRoot, parent, isLeftChild);
+            
+        }
+
+        void deleteNoChildren(Node* subRoot, Node* parent, bool isLeftChild) {
+            delete subRoot;
+            subRoot = NULL;
+            if(parent) {
+                if(isLeftChild) {
+                    parent->left = NULL;
+                } else {
+                    parent->right = NULL;
+                }
+            } else {
+                root = NULL;
+            }
+        }
+
+        void deleteOneChild(Node* subRoot, Node* parent, bool isLeftChild) {
+            Node* temp = subRoot->right;
+            if(temp == NULL) {
+                temp = subRoot->left;
+            }
+            delete subRoot;
+            subRoot = NULL;
+            if (parent) {
+                if(isLeftChild) {
+                    parent->left = temp;
+                } else {
+                    parent->right = temp;
+                }
+            } else {
+                root = temp;
+            }
+        }
+
+        void deleteTwoChildren(Node* subRoot, Node* parent, bool isLeftChild) {
+            // find predeccesor 
+            Node* predecessor = subRoot->left;
+            Node* predeccesorParent = predecessor;
+            while (predecessor->right != NULL) {
+                predeccesorParent = predecessor;
+                predecessor = predecessor->right;
+            }
+            if (predecessor->left == NULL) {
+                if (predeccesorParent == predecessor) {
+                    predecessor->right = subRoot->right;
+                } else {
+                    predecessor->right = subRoot->right;
+                    if (predecessor != subRoot->left) {
+                        predecessor->left = subRoot->left;
+                    }
+                    predeccesorParent->right = NULL;
+                }
+
+            } else {
+                if (predeccesorParent == predecessor){
+                    predeccesorParent->left = predecessor->left;
+                } else {
+                    predeccesorParent->right = predecessor->left;
+                }
+                predecessor->left = subRoot->left;
+                predecessor->right = subRoot->right;
+
+            }
+            if (parent) {
+                if (isLeftChild) {
+                    parent->left = predecessor;
+                } else {
+                    parent->right = predecessor;
+                }
+            } else {
+                    root = predecessor;
+            }
+            delete subRoot;
+            subRoot = NULL;
+
+        }
+
+        void cleanUpTree(Node* subRoot) {
+            if(subRoot != NULL) {
+                cleanUpTree(subRoot->left);
+                cleanUpTree(subRoot->right);
+                delete subRoot;
+            }
+        }
+
         public:
         BinarySearchTree() {
             root = NULL;
@@ -164,6 +296,10 @@ namespace Trees {
 
         bool search (Data data) {
             return search(data, root);
+        }
+
+        void deleteNode (Data data) {
+            deleteNode(data, root, NULL, false);
         }
 
         void preOrderTraversal(){
@@ -195,6 +331,45 @@ namespace Trees {
             int pathlength = 0;
             return sumDistances(pathlength, root);
         }
+
+        void printTree() {
+            levelOrderTraversalVector(root);
+            int currentLine = 1;
+            int height = heightOfTree();
+            string numSpaces = " ";
+            while(height>0) {
+                numSpaces = numSpaces + numSpaces;
+                height--;
+            }
+            int total = 0;
+
+            while(total < levelOrderTraversalV.size()) {
+                int temp = 0;
+                height = heightOfTree(levelOrderTraversalV[temp + total+1]);
+                while(temp<currentLine) {
+                    cout <<  numSpaces << levelOrderTraversalV[temp + total]->data << numSpaces;
+                    temp++;
+                }
+                cout << endl;
+
+                numSpaces = " ";
+                while(height>0) {
+                numSpaces = numSpaces + numSpaces;
+                height--;
+                }
+                numSpaces = numSpaces + " ";
+                total = currentLine + total;
+                currentLine++;
+            }
+
+        }
+
+        ~BinarySearchTree() {
+            cleanUpTree(root);
+            root = NULL;
+        }
+
+
 
         
 

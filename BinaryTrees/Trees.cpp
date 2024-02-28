@@ -9,19 +9,17 @@ int main() {
     tree.insert(5);
     tree.insert(0);
     tree.insert(8);
-    tree.insert(2);
+     tree.insert(2);
     tree.insert(1);
     tree.insert(4);
-    tree.insert(5);
-    tree.insert(2);
-    tree.insert(0);
-    tree.insert(4);
+    tree.deleteNode(0);
+//    tree.printTree();
 
     tree.inOrderTraversal();
-    tree.preOrderTraversal();
-    tree.levelOrderTraversal();
-    cout << tree.sumDistances();
-    int x = tree.heightOfTree();
-    cout << endl << x << endl;
+    // tree.preOrderTraversal();
+    // tree.levelOrderTraversal();
+    // cout << tree.sumDistances();
+    // int x = tree.heightOfTree();
+    // cout << endl << x << endl;
 
 }
