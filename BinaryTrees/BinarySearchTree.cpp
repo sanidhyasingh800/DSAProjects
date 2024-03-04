@@ -364,6 +364,16 @@ namespace Trees {
 
         }
 
+        void examletFunction(Node* subroot) {
+            if(subRoot->left != NULL) {
+                examletFunction(subRoot->left);
+            }   
+            if (subRoot->left->)
+            if(subRoot->right != NULL) {
+                examletFunction(subRoot->right);
+            }    
+        }
+
         ~BinarySearchTree() {
             cleanUpTree(root);
             root = NULL;
