@@ -1,0 +1,20 @@
+
+
+int a;
+int b;
+int c;
+int *arr;
+int arrlength;
+
+int main() {
+    for(a= 0; a<arrlength; a++) {
+        if (arr[a] % 2 == 0 && arr[a] > 10) {
+            b++;
+        } else {
+            if (arr[a] % 2 == 1 || arr[a] < 5) {
+                c++;
+            }
+        }
+    }
+
+}
